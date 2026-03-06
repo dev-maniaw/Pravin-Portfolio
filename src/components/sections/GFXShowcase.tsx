@@ -47,30 +47,24 @@ const GFXShowcase = () => {
       <div className="absolute top-1/4 left-1/4 w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
       <div className="absolute bottom-1/4 right-1/4 w-[40vw] h-[40vw] bg-accent/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      <div className="container mx-auto px-[5%] relative z-10">
-        {/* Massive Outlined GFX Header */}
-        <div className="flex flex-col items-center justify-center mb-16 md:mb-24">
-          <h2
-            className="font-display text-[150px] sm:text-[220px] md:text-[300px] lg:text-[400px] leading-none uppercase select-none opacity-20"
-            style={{
-              WebkitTextStroke: '2px rgba(255, 255, 255, 0.4)',
-              color: 'transparent'
-            }}
-          >
-            GFX
+      <div className="max-w-[1536px] mx-auto px-6 md:px-12 lg:px-16 relative z-10">
+        {/* Section Header */}
+        <div className="mb-12 md:mb-16">
+          <h2 className="font-display text-5xl md:text-7xl lg:text-8xl text-white/90 leading-[0.85] tracking-tight">
+            BRANDING <span className="text-[#c1121f]">& VISUAL DESIGN</span>
           </h2>
-          <div className="max-w-xl text-center -mt-8 md:-mt-16">
+          <div className="mt-4 md:mt-6">
             <p className="font-body text-sm md:text-base text-muted-foreground uppercase tracking-[0.3em] font-bold">
               Make your visuals unforgettable
             </p>
-            <p className="font-body text-[10px] md:text-xs text-white/40 mt-3 md:mt-4 max-w-sm mx-auto leading-relaxed">
+            <p className="font-body text-[10px] md:text-xs text-white/40 mt-2 max-w-sm leading-relaxed">
               Expert Lightroom edits, Photoshop retouches, and poster design that stops the scroll.
             </p>
           </div>
         </div>
 
         {/* Masonry Grid Layout to respect Og size (1:1, 4:5, etc.) */}
-        <div className="columns-1 sm:columns-2 lg:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6">
+        <div className="columns-2 sm:columns-2 lg:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6">
           {[
             { url: "/clients/GFX/0.jpeg", alt: "GFX Showcase" },
             { url: "/clients/GFX/1 (1).png", alt: "GFX Showcase" },

@@ -1,21 +1,21 @@
 import React from 'react';
 
 const BRANDS = [
-  { name: "Brand B", logo: "/clients/Logo/B.png" },
-  { name: "CW", logo: "/clients/Logo/CW.png" },
+  { name: "Bodhitva", logo: "/clients/Logo/Bodhitva.png" },
+  { name: "Connectwoods", logo: "/clients/Logo/Connectwoods.png" },
   { name: "Cansaa", logo: "/clients/Logo/Cansaa.png" },
-  { name: "GN", logo: "/clients/Logo/GN.png" },
-  { name: "KS", logo: "/clients/Logo/KS.png" },
+  { name: "GameNation", logo: "/clients/Logo/Gamenation.png" },
+  { name: "Kadal Suvai", logo: "/clients/Logo/Kadal Suvai.png" },
   { name: "Kassa", logo: "/clients/Logo/Kassa.png" },
-  { name: "PD", logo: "/clients/Logo/PD.png" },
-  { name: "R", logo: "/clients/Logo/R.png" },
-  { name: "SA", logo: "/clients/Logo/SA.png" },
-  { name: "SFT", logo: "/clients/Logo/SFT.png" },
-  { name: "SK", logo: "/clients/Logo/SK.png" },
+  { name: "Dr. Poorani's Dentistry", logo: "/clients/Logo/Dr.Poorani_s Dentistry.png" },
+  { name: "Renovar", logo: "/clients/Logo/Renovar.png" },
+  { name: "Simta Astrix", logo: "/clients/Logo/Simta Astrix.png" },
+  { name: "Susan Future Technologies", logo: "/clients/Logo/Susan Future Technologies.png" },
+  { name: "Sky Dental", logo: "/clients/Logo/Sky Dental.png" },
   { name: "Swix", logo: "/clients/Logo/Swix.png" },
-  { name: "TM", logo: "/clients/Logo/TM.png" },
-  { name: "WC", logo: "/clients/Logo/WC.png" },
-  { name: "WK", logo: "/clients/Logo/WK.png" },
+  { name: "T-Medly", logo: "/clients/Logo/T-Medly.png" },
+  { name: "Wonchance", logo: "/clients/Logo/Wonchance.png" },
+  { name: "Wonkrew", logo: "/clients/Logo/Wonkrew.png" },
   { name: "Zewa", logo: "/clients/Logo/Zewa.png" },
 ];
 
@@ -24,11 +24,11 @@ const BrandItem = ({ brand, keyPrefix }: { brand: { name: string; logo: string }
     key={keyPrefix}
     className="inline-flex flex-col justify-center items-center select-none pointer-events-none min-w-fit"
   >
-    <div className="relative size-[90px] sm:size-[100px] lg:size-[120px] xl:size-[140px] rounded-full overflow-hidden bg-white flex items-center justify-center shadow-lg">
+    <div className="relative size-[90px] sm:size-[100px] lg:size-[120px] xl:size-[140px] rounded-full overflow-hidden bg-white flex items-center justify-center shadow-lg p-2">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="w-full h-full object-cover" src={brand.logo} alt={brand.name} />
+      <img className="w-full h-full object-contain" src={brand.logo} alt={brand.name} />
     </div>
-    <div className="mt-2 md:mt-3 text-white text-sm sm:text-base lg:text-xl xl:text-2xl font-medium uppercase text-center font-['Montserrat'] tracking-tight">
+    <div className="mt-2 md:mt-3 text-white text-[10px] sm:text-xs lg:text-sm xl:text-base font-medium uppercase text-center font-['Montserrat'] tracking-tight max-w-[120px] md:max-w-[140px] leading-tight">
       {brand.name}
     </div>
   </div>
@@ -36,11 +36,11 @@ const BrandItem = ({ brand, keyPrefix }: { brand: { name: string; logo: string }
 
 const Brands = () => {
   return (
-    <section className="w-full mt-0 mb-6 md:my-0">
-      <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1600px] h-80 md:h-72 lg:h-80 xl:h-96 relative overflow-hidden mx-auto mt-6 md:mt-8 lg:mt-6 rounded-xl fade-section bg-black">
+    <section className="w-full mt-0 mb-4 md:my-0">
+      <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1600px] h-64 md:h-72 lg:h-80 xl:h-96 relative overflow-hidden mx-auto mt-2 md:mt-8 lg:mt-6 rounded-xl fade-section bg-black">
         {/* Section Title */}
-        <h2 className="left-[50%] -translate-x-1/2 top-[16px] md:top-[12px] lg:top-[16px] absolute text-[#c1121f] text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-normal uppercase font-fiorello whitespace-nowrap z-10">
-          Brands I worked With
+        <h2 className="left-[50%] -translate-x-1/2 top-[16px] md:top-[12px] lg:top-[16px] absolute text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-normal uppercase font-fiorello whitespace-nowrap z-10">
+          <span className="text-white">Brands I</span> <span className="text-[#c1121f]">worked With</span>
         </h2>
 
         {/* Marquee Wrapper */}

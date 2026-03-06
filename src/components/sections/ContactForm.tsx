@@ -1,12 +1,56 @@
-import React from 'react';
-import { Lock, Sparkles, Clock, ArrowRight } from 'lucide-react';
+"use client";
+
+import React, { useRef, useState } from 'react';
+import { Lock, Sparkles, Clock, ArrowRight, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 const ContactForm = () => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formRef.current) return;
+
+    setStatus('loading');
+    setErrorMessage('');
+
+    const formData = new FormData(formRef.current);
+    const name = formData.get('userName') as string;
+    const contact = formData.get('userContact') as string;
+    const serviceSelect = formRef.current.querySelector('select') as HTMLSelectElement;
+    const service = serviceSelect.options[serviceSelect.selectedIndex].text;
+    const details = formData.get('details') as string;
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, contact, service, details }),
+      });
+
+      if (res.ok) {
+        setStatus('success');
+        formRef.current.reset();
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        const data = await res.json();
+        setErrorMessage(data.error || 'Something went wrong.');
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 5000);
+      }
+    } catch {
+      setErrorMessage('Network error. Please try again.');
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
+  };
+
   return (
     <section className="relative w-full py-20 md:py-40 bg-black overflow-hidden" id="contact">
       {/* Background elements for depth */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 pointer-events-none select-none">
-        <h2 className="font-logo text-[12vw] md:text-[180px] leading-tight uppercase text-white text-center">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/3 opacity-5 pointer-events-none select-none">
+        <h2 className="font-display text-[15vw] md:text-[200px] lg:text-[240px] leading-[0.85] uppercase text-white text-center tracking-[0.15em]">
           Praveen<br />Thangavel
         </h2>
       </div>
@@ -32,7 +76,7 @@ const ContactForm = () => {
 
         {/* Contact form glassmorphic card */}
         <div className="w-full max-w-[640px] glass rounded-[32px] p-6 md:p-10 shadow-2xl relative">
-          <form className="space-y-6">
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Name Field */}
               <div className="space-y-2">
@@ -41,7 +85,8 @@ const ContactForm = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. Rahul Sharma"
+                  name="userName"
+                  placeholder="e.g. Praveen Thangavel"
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#c1121f] transition-colors font-body text-sm"
                   required
                 />
@@ -54,7 +99,8 @@ const ContactForm = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="email@example.com or 98765432"
+                  name="userContact"
+                  placeholder="email@example.com or +91 9876543210"
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#c1121f] transition-colors font-body text-sm"
                   required
                 />
@@ -68,15 +114,17 @@ const ContactForm = () => {
               </label>
               <div className="relative">
                 <select
+                  name="service"
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white appearance-none focus:outline-none focus:border-[#c1121f] transition-colors font-body text-sm cursor-pointer"
                   required
                   defaultValue=""
                 >
                   <option value="" disabled className="bg-neutral-900">Select a service...</option>
                   <option value="video-editing" className="bg-neutral-900">Video Editing</option>
-                  <option value="gfx-design" className="bg-neutral-900">GFX & Design</option>
-                  <option value="web-dev" className="bg-neutral-900">Web Development</option>
-                  <option value="ui-ux" className="bg-neutral-900">UI/UX Design</option>
+                  <option value="motion-graphics" className="bg-neutral-900">Motion Graphics</option>
+                  <option value="branding-design" className="bg-neutral-900">Branding & Visual Design</option>
+                  <option value="photography" className="bg-neutral-900">Photography</option>
+                  <option value="other" className="bg-neutral-900">Other</option>
                 </select>
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
@@ -90,6 +138,7 @@ const ContactForm = () => {
                 Project Details
               </label>
               <textarea
+                name="details"
                 placeholder="Briefly describe your project, deadline or budget..."
                 rows={4}
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#c1121f] transition-colors font-body text-sm resize-none"
@@ -99,12 +148,37 @@ const ContactForm = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-[#c1121f] hover:bg-[#a00d18] text-white font-bold py-5 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 group"
+              disabled={status === 'loading'}
+              className={`w-full text-white font-bold py-5 rounded-xl transition-all duration-300 transform flex items-center justify-center gap-3 group ${status === 'success' ? 'bg-green-600' : status === 'error' ? 'bg-red-800' : 'bg-[#c1121f] hover:bg-[#a00d18] hover:scale-[1.02] active:scale-[0.98]'
+                } ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
-              <span className="uppercase text-sm tracking-widest font-body">Get My Free Quote</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              {status === 'loading' && (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span className="uppercase text-sm tracking-widest font-body">Sending...</span>
+                </>
+              )}
+              {status === 'success' && (
+                <>
+                  <CheckCircle className="w-5 h-5" />
+                  <span className="uppercase text-sm tracking-widest font-body">Message Sent!</span>
+                </>
+              )}
+              {status === 'error' && (
+                <>
+                  <AlertCircle className="w-5 h-5" />
+                  <span className="uppercase text-sm tracking-widest font-body">{errorMessage}</span>
+                </>
+              )}
+              {status === 'idle' && (
+                <>
+                  <span className="uppercase text-sm tracking-widest font-body">Get My Free Quote</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
             </button>
           </form>
+
 
           {/* Form Footer Meta */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 md:gap-8 opacity-40">

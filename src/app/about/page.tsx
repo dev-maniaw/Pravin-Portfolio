@@ -57,7 +57,7 @@ export default function AboutPage() {
                             <p className="font-body text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#c1121f] flex flex-wrap gap-2 justify-center lg:justify-start">
                                 <span>VIDEO EDITOR</span>
                                 <span className="text-white/30">•</span>
-                                <span>MOTION GRAPHICS</span>
+                                <span>MOTION GRAPHIC DESIGNER</span>
                                 <span className="text-white/30">•</span>
                                 <span>BRAND & VISUAL DESIGNER</span>
                             </p>

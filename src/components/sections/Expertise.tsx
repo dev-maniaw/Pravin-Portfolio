@@ -1,18 +1,32 @@
+"use client";
+
 import React from 'react';
 
 const ExpertiseItem = ({
   number,
   title,
   level,
-  description
+  description,
+  targetId
 }: {
   number: string;
   title: string;
   level: string;
   description: string;
+  targetId: string;
 }) => {
+  const handleClick = () => {
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
-    <div className="group flex flex-col md:flex-row md:items-center justify-between py-6 md:py-10 border-b border-white/5 cursor-pointer transition-all duration-300">
+    <div
+      onClick={handleClick}
+      className="group flex flex-col md:flex-row md:items-center justify-between py-6 md:py-10 border-b border-white/5 cursor-pointer transition-all duration-300"
+    >
       <div className="flex items-center gap-4 md:gap-12">
         <span className="font-['Montserrat'] text-xs md:text-lg font-bold transition-colors duration-300 text-white/20 group-hover:text-[#c1121f]">
           {number}
@@ -63,31 +77,35 @@ const Expertise = () => {
       number: "01",
       title: "Video Editing",
       level: "Expert",
-      description: "Expert cutting, pacing, and storytelling that hooks the audience from the first second."
+      description: "Expert cutting, pacing, and storytelling that hooks the audience from the first second.",
+      targetId: "video-editing"
     },
     {
       number: "02",
       title: "Motion Graphics",
       level: "Expert",
-      description: "Dynamic animations and kinetic typography that bring static designs to life."
+      description: "Dynamic animations and kinetic typography that bring static designs to life.",
+      targetId: "video-editing"
     },
     {
       number: "03",
-      title: "Brand and Visual Design",
+      title: "Branding & Visual Design",
       level: "Advanced",
-      description: "Crafting striking visual assets, thumbnails, and brand identities that demand clicks."
+      description: "Crafting striking visual assets, thumbnails, and brand identities that demand clicks.",
+      targetId: "gfx"
     },
     {
       number: "04",
       title: "Photography",
       level: "Expert",
-      description: "Professional event and product photography with a cinematic eye."
+      description: "Professional event and product photography with a cinematic eye.",
+      targetId: "photography"
     }
   ];
 
   return (
     <section
-      id="expertise"
+      id="about"
       className="w-full relative py-20 md:py-40 bg-black overflow-hidden scroll-mt-12"
     >
       <div className="relative z-10 max-w-[1440px] xl:max-w-[1536px] mx-auto px-6 md:px-12 lg:px-16">
@@ -107,6 +125,7 @@ const Expertise = () => {
               title={service.title}
               level={service.level}
               description={service.description}
+              targetId={service.targetId}
             />
           ))}
         </div>

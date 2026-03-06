@@ -4,22 +4,22 @@ import { Phone, Award, Zap, CheckCircle2 } from 'lucide-react';
 const ValueProps = () => {
   const values = [
     {
-      icon: <Phone className="w-5 h-5 md:w-6 md:h-6" />,
+      icon: <Phone className="w-5 h-5 md:w-6 md:h-6 text-[#c1121f]" />,
       title: "24X7 SUPPORT",
       description: "On WhatsApp, Discord, Slack, Google Meet, and Zoom."
     },
     {
-      icon: <Award className="w-5 h-5 md:w-6 md:h-6" />,
+      icon: <Award className="w-5 h-5 md:w-6 md:h-6 text-[#c1121f]" />,
       title: "TRUST > MONEY",
       description: "Building lasting partnerships over short-term gains."
     },
     {
-      icon: <Zap className="w-5 h-5 md:w-6 md:h-6" />,
+      icon: <Zap className="w-5 h-5 md:w-6 md:h-6 text-[#c1121f]" />,
       title: "FAST DELIVERY",
       description: "Your task will be prioritized for quick turnaround."
     },
     {
-      icon: <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6" />,
+      icon: <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-[#c1121f]" />,
       title: "RELIABILITY",
       description: "Consistent quality and performance you can count on."
     }
@@ -30,27 +30,25 @@ const ValueProps = () => {
       <div className="container max-w-[1440px] xl:max-w-[1536px] mx-auto px-4 md:px-6 lg:px-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {values.map((item, index) => (
-            <div 
+            <div
               key={index}
-              className="group relative flex flex-col p-6 md:p-8 rounded-[20px] bg-[#1a1a1a]/40 border border-white/5 backdrop-blur-sm transition-all duration-500 hover:bg-[#1a1a1a]/60 hover:border-white/10"
+              className="glass p-6 md:p-8 rounded-[20px] transition-all duration-300 hover:border-[#c1121f]/30 group"
             >
-              {/* Icon Container */}
-              <div className="mb-6 text-[#c1121f] transition-transform duration-500 group-hover:scale-110">
+              <div className="mb-4 md:mb-6 transition-transform duration-300 group-hover:scale-110">
                 {item.icon}
               </div>
-
-              {/* Title */}
-              <h3 className="font-display text-xl md:text-2xl text-[#c1121f] tracking-tight mb-3 uppercase">
-                {item.title}
+              <h3 className="text-white font-display text-xl md:text-2xl font-bold uppercase mb-2">
+                {item.title.includes('>') ? (
+                  <>
+                    <span className="text-[#c1121f]">TRUST</span>
+                    <span className="mx-2 text-white/40">&gt;</span>
+                    <span>MONEY</span>
+                  </>
+                ) : item.title}
               </h3>
-
-              {/* Description */}
-              <p className="font-body text-sm md:text-base text-white/50 leading-relaxed max-w-[240px]">
+              <p className="text-white/60 font-body text-sm md:text-base leading-relaxed">
                 {item.description}
               </p>
-
-              {/* Subtle hover glow effect */}
-              <div className="absolute inset-0 rounded-[20px] opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500 shadow-[0_0_30px_rgba(193,18,31,0.05)]" />
             </div>
           ))}
         </div>

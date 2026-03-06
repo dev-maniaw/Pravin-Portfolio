@@ -15,10 +15,10 @@ import { Home, Play, Layers, UserRound } from "lucide-react";
  */
 // Navigation items mapping to sections on the page (static, defined outside component to avoid dependency issues)
 const NAV_ITEMS = [
-  { id: "home", icon: Home, label: "Home" },
-  { id: "video-editing", icon: Play, label: "Video" },
-  { id: "gfx", icon: Layers, label: "GFX" },
-  { id: "contact", icon: UserRound, label: "About" },
+  { id: "home", icon: Home, label: "Home", href: "/" },
+  { id: "video-editing", icon: Play, label: "Video", href: "/#video-editing" },
+  { id: "gfx", icon: Layers, label: "GFX", href: "/#gfx" },
+  { id: "about", icon: UserRound, label: "About", href: "/about" },
 ] as const;
 
 export default function MobileNav() {
@@ -36,7 +36,7 @@ export default function MobileNav() {
   useEffect(() => {
     const observerOptions = {
       root: null,
-      rootMargin: "-50% 0px -50% 0px",
+      rootMargin: "-20% 0px -20% 0px",
       threshold: 0,
     };
 
@@ -67,12 +67,19 @@ export default function MobileNav() {
         return (
           <button
             key={item.id}
-            onClick={() => handleScroll(item.id)}
-            className={`h-10 w-10 flex items-center justify-center transition-all duration-300 outline-none ${
-              isActive 
-                ? "text-[#c1121f] scale-110" 
-                : "text-white/40 hover:text-white/60"
-            }`}
+            onClick={() => {
+              if (window.location.pathname !== '/' && item.id !== 'about') {
+                window.location.href = item.href;
+              } else if (item.id === 'about' && window.location.pathname !== '/about') {
+                window.location.href = item.href;
+              } else {
+                handleScroll(item.id);
+              }
+            }}
+            className={`h-10 w-10 flex items-center justify-center transition-all duration-300 outline-none ${isActive
+              ? "text-[#c1121f] scale-110"
+              : "text-white/40 hover:text-white/60"
+              }`}
             aria-label={item.label}
           >
             <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />

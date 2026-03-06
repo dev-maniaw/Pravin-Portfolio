@@ -40,8 +40,8 @@ const Testimonials: React.FC = () => {
     <section className="bg-black py-20 md:py-32 px-[5%]">
       <div className="max-w-[1536px] mx-auto">
         <div className="flex justify-center mb-16 md:mb-24">
-          <h2 className="text-[#c1121f] font-display text-5xl md:text-7xl lg:text-8xl tracking-tight uppercase leading-[0.85] text-center">
-            Client Stories
+          <h2 className="font-display text-5xl md:text-7xl lg:text-8xl tracking-tight uppercase leading-[0.85] text-center">
+            <span className="text-white/90">Client</span> <span className="text-[#c1121f]">Stories</span>
           </h2>
         </div>
 
@@ -68,7 +68,7 @@ const Testimonials: React.FC = () => {
                 YOUR STORY<br />HERE?
               </h3>
               <a
-                href="#contact"
+                href="/#contact"
                 className="bg-black text-white px-8 py-3 rounded-full font-body font-bold text-xs uppercase tracking-[0.2em] transition-all hover:bg-zinc-900"
               >
                 LET&apos;S WORK

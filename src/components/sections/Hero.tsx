@@ -70,7 +70,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-[1536px] mx-auto px-6 md:px-12 lg:px-16 pt-32 md:pt-40 pb-12 min-h-[100dvh] flex flex-col justify-between">
 
         {/* Top Section */}
-        <div className="relative z-20 mt-12 md:mt-20">
+        <div className="relative z-20 mt-20 md:mt-20">
           {/* Portfolio Label */}
           <div className="flex items-center gap-4 mb-4 md:mb-6 text-white/50">
             <div className="w-8 md:w-16 h-[1px] bg-[#c1121f]" />
@@ -90,15 +90,15 @@ export default function Hero() {
 
           {/* Solid Last Name overlapping slightly */}
           <h2
-            className="font-fiorello text-white text-[16vw] md:text-[120px] lg:text-[150px] uppercase leading-[0.8] tracking-widest relative -top-2 md:-top-4 z-20"
+            className="font-fiorello text-white text-[16vw] md:text-[120px] lg:text-[150px] uppercase leading-[0.8] tracking-widest relative top-1 md:-top-4 z-20"
           >
             THANGAVEL
           </h2>
 
           {/* Role Tags with extending red line */}
-          <div className="flex items-center w-full mt-4 md:mt-2">
+          <div className="flex items-center w-full mt-8 md:mt-2">
             <span className="font-body text-[9px] md:text-[11px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-white/40 pr-4 md:pr-8 whitespace-nowrap">
-              VIDEO EDITOR · MOTION GRAPHICS · BRAND & VISUAL DESIGNER
+              VIDEO EDITOR · MOTION GRAPHIC DESIGNER · BRAND & VISUAL DESIGNER
             </span>
             <div className="h-[1px] bg-[#c1121f]/60 flex-grow" />
           </div>

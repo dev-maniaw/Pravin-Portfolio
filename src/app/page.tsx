@@ -8,6 +8,7 @@ import Testimonials from "@/components/sections/Testimonials";
 import ContactForm from "@/components/sections/ContactForm";
 import Footer from "@/components/sections/Footer";
 import MobileNav from "@/components/navigation/MobileNav";
+import ValueProps from "@/components/sections/ValueProps";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <VideoEditingShowcase />
       <GFXShowcase />
       <Photography />
+      <ValueProps />
       <Testimonials />
       <ContactForm />
       <Footer />

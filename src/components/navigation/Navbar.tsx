@@ -5,9 +5,10 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
-  { label: "HOME", href: "#home" },
-  { label: "PORTFOLIO", href: "#expertise" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "HOME", href: "/" },
+  { label: "ABOUT", href: "/about" },
+  { label: "PORTFOLIO", href: "/#video-editing" },
+  { label: "CONTACT", href: "/#contact" },
 ];
 
 export default function Navbar() {
@@ -30,9 +31,9 @@ export default function Navbar() {
     >
       <div className="max-w-[1536px] mx-auto flex items-center justify-between">
         {/* Logo */}
-        <Link href="#home" className="group">
-          <span className="text-white text-xl md:text-2xl font-logo tracking-tighter transition-transform duration-300 group-hover:scale-105 block whitespace-nowrap">
-            Praveen Thangavel
+        <Link href="/" className="group">
+          <span className="text-white text-xl md:text-2xl font-logo uppercase tracking-widest transition-transform duration-300 group-hover:scale-105 block whitespace-nowrap">
+            PRAVEEN THANGAVEL
           </span>
         </Link>
 
@@ -51,7 +52,7 @@ export default function Navbar() {
 
         {/* Hire Me Button */}
         <Link
-          href="#contact"
+          href="/#contact"
           className="hidden lg:flex items-center gap-2 px-6 py-2.5 rounded-full border border-white/20 hover:border-[#c1121f] hover:bg-[#c1121f] text-white transition-all duration-300 group"
         >
           <span className="text-xs font-display tracking-[0.2em]">HIRE ME</span>
