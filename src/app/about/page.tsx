@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ContactForm from '@/components/sections/ContactForm';
+import { r2 } from '@/lib/r2';
 
 export default function AboutPage() {
     return (
@@ -31,10 +32,11 @@ export default function AboutPage() {
                             <div className="relative w-[280px] h-[350px] md:w-[320px] md:h-[400px] mb-8 rounded-2xl overflow-hidden border border-white/10 bg-[#161616]">
                                 <div className="absolute inset-0 bg-[#c1121f]/20 blur-2xl z-0" />
                                 <Image
-                                    src="/clients/Banners/GFX-banner-1.jpeg" // Re-using a cool existing image for now
+                                    src={r2('Banners/Pravin.webp')}
                                     alt="Praveen Thangavel"
                                     fill
-                                    className="object-cover z-10 relative saturate-50 contrast-125"
+                                    unoptimized
+                                    className="object-cover z-10 relative"
                                 />
                             </div>
 

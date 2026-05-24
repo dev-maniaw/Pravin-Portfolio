@@ -1,22 +1,23 @@
 import React from 'react';
+import { r2 } from '@/lib/r2';
 
 const BRANDS = [
-  { name: "Bodhitva", logo: "/clients/Logo/Bodhitva.png" },
-  { name: "Connectwoods", logo: "/clients/Logo/Connectwoods.png" },
-  { name: "Cansaa", logo: "/clients/Logo/Cansaa.png" },
-  { name: "GameNation", logo: "/clients/Logo/Gamenation.png" },
-  { name: "Kadal Suvai", logo: "/clients/Logo/Kadal Suvai.png" },
-  { name: "Kassa", logo: "/clients/Logo/Kassa.png" },
-  { name: "Dr. Poorani's Dentistry", logo: "/clients/Logo/Dr.Poorani_s Dentistry.png" },
-  { name: "Renovar", logo: "/clients/Logo/Renovar.png" },
-  { name: "Simta Astrix", logo: "/clients/Logo/Simta Astrix.png" },
-  { name: "Susan Future Technologies", logo: "/clients/Logo/Susan Future Technologies.png" },
-  { name: "Sky Dental", logo: "/clients/Logo/Sky Dental.png" },
-  { name: "Swix", logo: "/clients/Logo/Swix.png" },
-  { name: "T-Medly", logo: "/clients/Logo/T-Medly.png" },
-  { name: "Wonchance", logo: "/clients/Logo/Wonchance.png" },
-  { name: "Wonkrew", logo: "/clients/Logo/Wonkrew.png" },
-  { name: "Zewa", logo: "/clients/Logo/Zewa.png" },
+  { name: "Bodhitva", logo: r2('Logo/Bodhitva.png') },
+  { name: "Connectwoods", logo: r2('Logo/Connectwoods.png') },
+  { name: "Cansaa", logo: r2('Logo/Cansaa.png') },
+  { name: "GameNation", logo: r2('Logo/Gamenation.png') },
+  { name: "Kadal Suvai", logo: r2('Logo/Kadal Suvai.png') },
+  { name: "Kassa", logo: r2('Logo/Kassa.png') },
+  { name: "Dr. Poorani's Dentistry", logo: r2('Logo/Dr.Poorani_s Dentistry.png') },
+  { name: "Renovar", logo: r2('Logo/Renovar.png') },
+  { name: "Simta Astrix", logo: r2('Logo/Simta Astrix.png') },
+  { name: "Susan Future Technologies", logo: r2('Logo/Susan Future Technologies.png') },
+  { name: "Sky Dental", logo: r2('Logo/Sky Dental.png') },
+  { name: "Swix", logo: r2('Logo/Swix.png') },
+  { name: "T-Medly", logo: r2('Logo/T-Medly.png') },
+  { name: "Wonchance", logo: r2('Logo/Wonchance.png') },
+  { name: "Wonkrew", logo: r2('Logo/Wonkrew.png') },
+  { name: "Zewa", logo: r2('Logo/Zewa.png') },
 ];
 
 const BrandItem = ({ brand, keyPrefix }: { brand: { name: string; logo: string }; keyPrefix: string }) => (

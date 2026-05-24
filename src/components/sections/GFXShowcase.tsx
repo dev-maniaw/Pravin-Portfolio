@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { r2 } from '@/lib/r2';
 
 const GFXShowcase = () => {
   // Assets mapped from the provided list and screenshots
@@ -66,19 +67,19 @@ const GFXShowcase = () => {
         {/* Masonry Grid Layout to respect Og size (1:1, 4:5, etc.) */}
         <div className="columns-2 sm:columns-2 lg:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6">
           {[
-            { url: "/clients/GFX/0.jpeg", alt: "GFX Showcase" },
-            { url: "/clients/GFX/1 (1).png", alt: "GFX Showcase" },
-            { url: "/clients/GFX/2.png", alt: "GFX Showcase" },
-            { url: "/clients/GFX/3 (1).png", alt: "GFX Showcase" },
-            { url: "/clients/GFX/3 (2).png", alt: "GFX Showcase" },
-            { url: "/clients/GFX/4.png", alt: "GFX Showcase" },
-            { url: "/clients/GFX/5.png", alt: "GFX Showcase" },
-            { url: "/clients/GFX/6.png", alt: "GFX Showcase" },
-            { url: "/clients/GFX/Flossing.jpg", alt: "GFX Showcase" },
-            { url: "/clients/GFX/KS NY.png", alt: "GFX Showcase" },
-            { url: "/clients/GFX/MADRAS.png", alt: "GFX Showcase" },
-            { url: "/clients/GFX/ROM SEPT 13.png", alt: "GFX Showcase" },
-            { url: "/clients/GFX/ROM.jpg", alt: "GFX Showcase" }
+            { url: r2('GFX/0.jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/1 (1).jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/2.jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/3 (1).jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/3 (2).jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/4.jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/5.jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/6.jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/Flossing.jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/KS NY.jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/MADRAS.jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/ROM SEPT 13.jpg'), alt: "GFX Showcase" },
+            { url: r2('GFX/ROM.jpg'), alt: "GFX Showcase" }
           ].map((item, idx) => (
             <div key={idx} className="break-inside-avoid relative group overflow-hidden rounded-2xl md:rounded-[24px] border border-white/5 bg-[#161616] p-1">
               <Image

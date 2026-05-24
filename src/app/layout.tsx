@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 import Navbar from "@/components/navigation/Navbar";
+import Preloader from "@/components/ui/Preloader";
 
 export default function RootLayout({
   children,
@@ -27,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${montserrat.variable} antialiased bg-black text-white`}>
+        <Preloader />
         <Navbar />
         {children}
         <VisualEditsMessenger />

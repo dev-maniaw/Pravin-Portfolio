@@ -10,27 +10,27 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     text: "We truly appreciate the excellent work delivered by Pravin. His professionalism, attention to detail, and commitment to quality have been remarkable throughout our collaboration.",
-    name: "NIKHIL MALANKAR",
+    name: "PRATHAP",
     role: "BRAND AMBASSADOR, SPAWN SKOOL | CEO, GAMEON STUDIOS",
   },
   {
     text: "Quick Edits, Smooth transitions, Great Clippings and designs which gained millions of views to our short form made for MOC podcast Clips and MOC meme reacts.",
-    name: "JAIDEEP",
+    name: "SABANA",
     role: "MANAGER, MEN OF CULTURE",
   },
   {
     text: "Pravin's journey into video editing began right here with us. He took the time to experiment with different creative approaches, working with brands like Zoca and Attic Fanatics.",
-    name: "CEO",
+    name: "KAMALESH",
     role: "TRIGONA DIGITAL",
   },
   {
     text: "Seasonal Video edits for where so good had a overall good quality and clean look need to improve in fonts and more punchy look.",
-    name: "CEO",
-    role: "ATTIC FANATICS",
+    name: "SATISH RAJENDRAN",
+    role: "CEO, ATTIC FANATICS",
   },
   {
     text: "Would hire him again in a heartbeat, Great editing work!",
-    name: "JONATHAN KIRCHNER",
+    name: "MANIKANDAN",
     role: "LIFE COACH, FACEBOOK META ADS",
   },
 ];
@@ -97,12 +97,9 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ item }) => {
       </p>
 
       <div className="mt-auto">
-        <h4 className="text-white font-body font-bold text-xl uppercase tracking-tighter leading-tight mb-2">
+        <h4 className="text-white font-body font-bold text-xl uppercase tracking-tighter leading-tight">
           {item.name}
         </h4>
-        <div className="text-[#c1121f] font-body text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] leading-relaxed">
-          {item.role}
-        </div>
       </div>
     </div>
   );

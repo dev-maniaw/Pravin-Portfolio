@@ -1,29 +1,63 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { r2 } from '@/lib/r2';
+
+// Lazy video: sets src + plays only when in viewport, pauses when out
+const LazyVideo = ({ src, className }: { src: string; className?: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          el.play().catch(() => {});
+        } else {
+          el.pause();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      src={isInView ? src : undefined}
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="none"
+      className={className}
+    />
+  );
+};
 
 const VideoEditingShowcase: React.FC = () => {
   const shorts = [
-    { id: 2, src: "/clients/Videos/Rockstar Games.mp4", title: "Rockstar Style Edit", category: "ACTION / GAMING", isVertical: true },
-    { id: 3, src: "/clients/Videos/Music Aura.mp4", title: "Music Aura", category: "CREATIVE / MOTION", isVertical: true },
-    { id: 6, src: "/clients/Videos/Trade Games Ad.mp4", title: "Trade Games Ad", category: "AD / MOTION GFX", isVertical: true },
-    { id: 1, src: "/clients/Videos/Beauty Of Open Worlds.mp4", title: "Beauty of Open Worlds", category: "CINEMATIC / TRAVEL", isVertical: false },
-    { id: 4, src: "/clients/Videos/Top 5 Gaming Moments.mp4", title: "Top 5 Gaming Moments", category: "GAMING / MONTAGE", isVertical: false },
-    { id: 5, src: "/clients/Videos/Zewa Birdoo.mp4", title: "Zewa Birdoo", category: "BRAND / COMMERCIAL", isVertical: false },
-    { id: 7, src: "/clients/Videos/Buy Console.mp4", title: "Buy Console", isVertical: true },
-    { id: 8, src: "/clients/Videos/Sell Console.mp4", title: "Sell Console", isVertical: true },
-    { id: 9, src: "/clients/Videos/RENOVAR 1.mp4", title: "Renovar V1", isVertical: true },
-    { id: 10, src: "/clients/Videos/RENOVAR 3.mp4", title: "Renovar V3", isVertical: true },
-    { id: 11, src: "/clients/Videos/Sc 12.0 V1.mp4", title: "SC 12.0", isVertical: true },
-    { id: 12, src: "/clients/Videos/Sc 13.0 V1.mp4", title: "SC 13.0", isVertical: true },
-    { id: 13, src: "/clients/Videos/Sg 5 V1.mp4", title: "SG 5", isVertical: true },
-    { id: 14, src: "/clients/Videos/Steel Doors.mp4", title: "Steel Doors", isVertical: true },
-    { id: 15, src: "/clients/Videos/T-Medly.mp4", title: "T-Medly", isVertical: true },
-    { id: 16, src: "/clients/Videos/Tg 7.0 V1.mp4", title: "TG 7.0", isVertical: true },
-    { id: 17, src: "/clients/Videos/Trade Games.mp4", title: "Trade Games", isVertical: true },
-    { id: 18, src: "/clients/Videos/Trade Games 2.0.mp4", title: "Trade Games 2.0", isVertical: true },
-    { id: 19, src: "/clients/Videos/ROM.mp4", title: "ROM", isVertical: true }
+    // Initial 6 — ordered so greedy algo gives: Col0: V+H, Col1: V+H, Col2: V+V
+    { id: 2,  src: r2('Videos/Rockstar Games.mp4'),       title: "Rockstar Style Edit",    category: "ACTION / GAMING",    isVertical: true  },
+    { id: 3,  src: r2('Videos/Music Aura.mp4'),           title: "Music Aura",             category: "CREATIVE / MOTION",  isVertical: true  },
+    { id: 7,  src: r2('Videos/Buy Console.mp4'),          title: "Buy Console",            category: "BRAND / AD",         isVertical: true  },
+    { id: 4,  src: r2('Videos/Top 5 Gaming Moments.mp4'), title: "Top 5 Gaming Moments",   category: "GAMING / MONTAGE",   isVertical: false },
+    { id: 5,  src: r2('Videos/Zewa Birdoo.mp4'),          title: "Zewa Birdoo",            category: "BRAND / COMMERCIAL", isVertical: false },
+    { id: 8,  src: r2('Videos/Sell Console.mp4'),         title: "Sell Console",           category: "BRAND / AD",         isVertical: true  },
+    // Load more
+    { id: 11, src: r2('Videos/Sc 12.0 V1.mp4'),          title: "SC 12.0",                category: "PORTFOLIO",          isVertical: true  },
+    { id: 12, src: r2('Videos/Sc 13.0 V1.mp4'),          title: "SC 13.0",                category: "PORTFOLIO",          isVertical: true  },
+    { id: 13, src: r2('Videos/Sg 5 V1.mp4'),             title: "SG 5",                   category: "PORTFOLIO",          isVertical: true  },
+    { id: 14, src: r2('Videos/Steel Doors.mp4'),          title: "Steel Doors",            category: "BRAND / COMMERCIAL", isVertical: true  },
+    { id: 16, src: r2('Videos/Tg 7.0 V1.mp4'),           title: "TG 7.0",                 category: "PORTFOLIO",          isVertical: true  },
+    { id: 17, src: r2('Videos/Trade Games.mp4'),          title: "Trade Games",            category: "GAMING / AD",        isVertical: true  },
+    { id: 19, src: r2('Videos/ROM.mp4'),                  title: "ROM",                    category: "CINEMATIC",          isVertical: true  },
   ];
 
   const services = [
@@ -53,23 +87,21 @@ const VideoEditingShowcase: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Dynamic masonry column distribution
+  // Separate landscape and portrait videos
   const isMobile = windowWidth > 0 && windowWidth < 768;
-  const visibleCount = isExpanded ? shorts.length : 6;
-  const visibleShorts = shorts.slice(0, visibleCount);
+  const landscapeVideos = shorts.filter(v => !v.isVertical);
+  const portraitVideos = shorts.filter(v => v.isVertical);
+  const visiblePortraitCount = isExpanded ? portraitVideos.length : 6;
+  const visiblePortraits = portraitVideos.slice(0, visiblePortraitCount);
 
+  // Masonry distribution for portrait videos
   const numCols = isMobile ? 2 : 3;
-
-  // Greedy distribution to balance column heights
   const columns: typeof shorts[] = Array.from({ length: numCols }, () => []);
   const colHeights = Array(numCols).fill(0);
-
-  visibleShorts.forEach((item) => {
-    // Determine which column has the minimum height
-    const minHeightIndex = colHeights.indexOf(Math.min(...colHeights));
-    columns[minHeightIndex].push(item);
-    // Vertical videos have approx height 2, horizontal 1.1 to keep it balanced
-    colHeights[minHeightIndex] += item.isVertical ? 2 : 1.1;
+  visiblePortraits.forEach((item) => {
+    const minIdx = colHeights.indexOf(Math.min(...colHeights));
+    columns[minIdx].push(item);
+    colHeights[minIdx] += 2;
   });
 
   return (
@@ -79,7 +111,7 @@ const VideoEditingShowcase: React.FC = () => {
         <div className="max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1600px] w-full md:w-[85%] lg:w-[90%] relative overflow-hidden aspect-[4/5] sm:aspect-[16/9] md:aspect-[2/1] lg:aspect-[2.35/1] xl:aspect-[2.4/1] flex items-center justify-center rounded-[20px] md:rounded-[24px] lg:rounded-[20px] shadow-[0_30px_60px_-12px_rgba(0,0,0,0.5)] border border-white/5 bg-[#161616]">
           {/* Background Text Overlay */}
           <div className="absolute top-[13%] left-0 w-full flex flex-col items-center justify-center z-0 pointer-events-none select-none">
-            <h1 className="text-[#c1121f] font-normal font-display uppercase leading-[0.8] whitespace-normal md:whitespace-nowrap w-full text-[12vw] md:text-[80px] lg:text-[180px] xl:text-[220px] text-center opacity-80 transition-all duration-500 transform">
+            <h1 className="text-[#c1121f] font-normal font-display uppercase leading-[0.8] whitespace-normal md:whitespace-nowrap w-full text-[20vw] md:text-[80px] lg:text-[180px] xl:text-[220px] text-center opacity-80 transition-all duration-500 transform">
               {services[currentServiceIndex].title}
             </h1>
           </div>
@@ -87,12 +119,13 @@ const VideoEditingShowcase: React.FC = () => {
           {/* Central Character Illustration */}
           <div className="absolute inset-0 z-10 flex items-end justify-center pointer-events-none transition-opacity duration-500">
             <Image
-              src={services[currentServiceIndex].image}
-              alt={services[currentServiceIndex].title}
+              src={r2('Banners/pr.webp')}
+              alt="Praveen Thangavel"
               width={1600}
               height={900}
               className="w-[210%] max-w-none md:w-[84%] lg:w-[78%] h-auto object-contain translate-y-[2px]"
               priority
+              unoptimized
             />
           </div>
         </div>
@@ -100,75 +133,84 @@ const VideoEditingShowcase: React.FC = () => {
 
 
 
-      {/* Masonry Video Grid */}
+      {/* Video Grid */}
       <div className="w-full max-w-[1440px] xl:max-w-[1536px] mx-auto pb-12 md:pb-20 lg:pb-24 px-4 md:px-6 lg:px-12">
+
+        {/* Row 1 — Landscape videos (16:9) */}
+        {landscapeVideos.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 mb-3 md:mb-6">
+            {landscapeVideos.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => setActiveVideo(item.src)}
+                className="relative w-full aspect-video rounded-[12px] md:rounded-[20px] bg-[#161616] border border-white/5 hover:border-[#c1121f]/50 overflow-hidden group cursor-pointer"
+              >
+                <LazyVideo src={item.src} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                {/* Category Badge */}
+                <div className="absolute top-2 left-2 md:top-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10">
+                  <span className="font-body text-[11px] md:text-base font-bold tracking-widest text-white/80 uppercase">
+                    {(item as any).category || "PORTFOLIO"}
+                  </span>
+                </div>
+                {/* Mute Icon */}
+                <div className="absolute top-2 right-2 md:top-4 md:right-4 size-7 md:size-10 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center z-10">
+                  <svg className="size-3 md:size-4 text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                  </svg>
+                </div>
+                {/* Play */}
+                <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10 flex items-center gap-1 md:gap-2">
+                  <svg className="size-3 md:size-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                  <span className="font-body text-[11px] md:text-base font-bold tracking-wider text-white uppercase mt-[1px]">PLAY</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Row 2+ — Portrait videos (9:16) masonry */}
         <div className={`grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 items-start`}>
           {columns.map((column, colIndex) => (
             <div key={colIndex} className="flex flex-col gap-3 md:gap-6">
-              {column.map((item, itemIdx) => {
-                // Determine if this video was part of the initial set or loaded via "Load More"
-                // The first 6 videos (index 0-5 in original shorts array) are immediate.
-                // find original index to be precise
-                const originalIndex = shorts.findIndex(s => s.id === item.id);
-                const isInitial = originalIndex < 6;
-
-                return (
-                  <div
-                    key={item.id}
-                    onClick={() => setActiveVideo(item.src)}
-                    className="relative w-full rounded-[12px] md:rounded-[20px] bg-[#161616] border border-white/5 hover:border-[#c1121f]/50 overflow-hidden group cursor-pointer"
-                  >
-                    <video
-                      src={item.src}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      // Lazy load videos that are not in the initial set
-                      preload={isInitial ? "auto" : "none"}
-                      poster={`/api/placeholder/10/10`} // Tiny placeholder to avoid layout shift if possible
-                      className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                      onMouseOver={(e) => {
-                        // On hover, if it's not loaded, start loading
-                        if (!isInitial) {
-                          const v = e.currentTarget;
-                          v.preload = "auto";
-                        }
-                      }}
-                    />
-                    {/* Category Badge */}
-                    <div className="absolute top-2 left-2 md:top-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10 transition-opacity">
-                      <span className="font-body text-[6px] md:text-[9px] font-bold tracking-widest text-white/80 uppercase">
-                        {(item as any).category || "PORTFOLIO"}
-                      </span>
-                    </div>
-                    {/* Mute/Speaker Icon */}
-                    <div className="absolute top-2 right-2 md:top-4 md:right-4 size-6 md:size-8 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center z-10">
-                      <svg className="size-2 md:size-3 text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                        <line x1="23" y1="9" x2="17" y2="15"></line>
-                        <line x1="17" y1="9" x2="23" y2="15"></line>
-                      </svg>
-                    </div>
-                    {/* Play Overlay (Bottom Left) */}
-                    <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10 flex items-center gap-1 md:gap-2 transition-opacity">
-                      <svg className="size-2 md:size-2.5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                      <span className="font-body text-[6px] md:text-[9px] font-bold tracking-wider text-white uppercase mt-[1px]">PLAY</span>
-                    </div>
+              {column.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => setActiveVideo(item.src)}
+                  className="relative w-full rounded-[12px] md:rounded-[20px] bg-[#161616] border border-white/5 hover:border-[#c1121f]/50 overflow-hidden group cursor-pointer"
+                >
+                  <LazyVideo src={item.src} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" />
+                  {/* Category Badge */}
+                  <div className="absolute top-2 left-2 md:top-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10">
+                    <span className="font-body text-[11px] md:text-base font-bold tracking-widest text-white/80 uppercase">
+                      {(item as any).category || "PORTFOLIO"}
+                    </span>
                   </div>
-                );
-              })}
+                  {/* Mute Icon */}
+                  <div className="absolute top-2 right-2 md:top-4 md:right-4 size-7 md:size-10 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center z-10">
+                    <svg className="size-3 md:size-4 text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <line x1="23" y1="9" x2="17" y2="15"></line>
+                      <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                  </div>
+                  {/* Play */}
+                  <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10 flex items-center gap-1 md:gap-2">
+                    <svg className="size-3 md:size-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                    <span className="font-body text-[11px] md:text-base font-bold tracking-wider text-white uppercase mt-[1px]">PLAY</span>
+                  </div>
+                </div>
+              ))}
             </div>
           ))}
         </div>
 
-        {/* Load More Button */}
-        {shorts.length > 6 && (
+        {/* Load More Button — for portrait videos */}
+        {portraitVideos.length > 6 && (
           <div className="w-full flex flex-col items-center justify-center mt-12 md:mt-20">
             <span
-              className="font-body text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-white/50 mb-4 transition-colors hover:text-white cursor-pointer select-none"
+              className="font-body text-sm md:text-base font-bold uppercase tracking-[0.2em] text-white/50 mb-4 transition-colors hover:text-white cursor-pointer select-none"
               onClick={() => setIsExpanded(!isExpanded)}
             >
               {isExpanded ? "LOAD LESS" : "LOAD MORE"}
@@ -179,10 +221,7 @@ const VideoEditingShowcase: React.FC = () => {
               aria-label={isExpanded ? "Load less videos" : "Load more videos"}
             >
               <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                 className={`size-4 text-white/50 group-hover:text-white transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -191,6 +230,7 @@ const VideoEditingShowcase: React.FC = () => {
           </div>
         )}
       </div>
+
 
       {/* Full-Screen Video Modal (Zoom-like) */}
       {activeVideo && (

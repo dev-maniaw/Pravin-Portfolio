@@ -2,21 +2,29 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { r2 } from '@/lib/r2';
 
 const photos = [
-    { src: "/clients/Photography/1000086542.jpg.jpg", alt: "Photography 1" },
-    { src: "/clients/Photography/DSC_0401.png", alt: "Photography 2" },
-    { src: "/clients/Photography/DSC_0411.png", alt: "Photography 3" },
-    { src: "/clients/Photography/DSC_0430.png", alt: "Photography 4" },
-    { src: "/clients/Photography/DSC_0440.png", alt: "Photography 5" },
-    { src: "/clients/Photography/DSC_0810.JPG.jpg", alt: "Photography 6" },
-    { src: "/clients/Photography/DSC_0822.JPG.jpg", alt: "Photography 7" },
-    { src: "/clients/Photography/DSC_0826.JPG.jpg", alt: "Photography 8" },
-    { src: "/clients/Photography/_DSC0159.jpg", alt: "Photography 9" },
-    { src: "/clients/Photography/_DSC0174.jpg", alt: "Photography 10" },
-    { src: "/clients/Photography/_DSC0178.jpg", alt: "Photography 11" },
-    { src: "/clients/Photography/_DSC0344.jpg", alt: "Photography 12" },
+    // Row 1 — People / Portrait
+    { src: r2('Photography/1000086542.jpg.jpg'), alt: "Photography 1" },
+    { src: r2('Photography/DSC_0810.JPG.jpg'),   alt: "Photography 6" },
+    { src: r2('Photography/DSC_0822.JPG.jpg'),   alt: "Photography 7" },
+    { src: r2('Photography/DSC_0826.JPG.jpg'),   alt: "Photography 8" },
+    // Row 2 — Products
+    { src: r2('Photography/DSC_0401.jpg'),       alt: "Photography 2" },
+    { src: r2('Photography/DSC_0411.jpg'),       alt: "Photography 3" },
+    { src: r2('Photography/DSC_0430.jpg'),       alt: "Photography 4" },
+    { src: r2('Photography/DSC_0440.jpg'),       alt: "Photography 5" },
+    // Row 3 — People / Portrait
+    { src: r2('Photography/_DSC0159.jpg'),       alt: "Photography 9"  },
+    { src: r2('Photography/_DSC0174.jpg'),       alt: "Photography 10" },
+    { src: r2('Photography/_DSC0178.jpg'),       alt: "Photography 11" },
+    { src: r2('Photography/_DSC0344.jpg'),       alt: "Photography 12" },
 ];
+
+// Dark shimmer placeholder shown while image loads
+const shimmerBase64 =
+  "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUzMyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUzMyIgZmlsbD0iIzE2MTYxNiIvPjwvc3ZnPg==";
 
 const Photography = () => {
     return (
@@ -40,8 +48,12 @@ const Photography = () => {
                                 src={photo.src}
                                 alt={photo.alt}
                                 fill
+                                loading="lazy"
+                                unoptimized
                                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                                placeholder="blur"
+                                blurDataURL={shimmerBase64}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { r2 } from '@/lib/r2';
 
 const SKILLS = [
   "Storytelling & Hooks",
@@ -51,26 +52,27 @@ export default function Hero() {
         style={{ transform: `translateY(${parallaxValue * 0.15}px)` }}
       >
         <Image
-          src="/clients/Banners/GFX-banner-1.jpeg"
+          src={r2('Banners/Pravin.webp')}
           alt="Praveen Thangavel"
           fill
           priority
-          className="object-cover object-center md:object-right opacity-70"
+          unoptimized
+          className="object-cover object-[center_15%] md:object-[center_top] opacity-90"
           sizes="(max-width: 768px) 100vw, 60vw"
         />
-        {/* Cinematic Overlays to blend with left dark area */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#111111] via-[#111111]/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent opacity-90" />
+        {/* Cinematic Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#111111] via-[#111111]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent opacity-60" />
       </div>
 
       {/* Red Glow mapped to eyes in reference */}
-      <div className="absolute top-[40%] left-1/2 md:left-[60%] -translate-x-1/2 -translate-y-1/2 w-[30vw] h-[20vw] bg-red-600/30 rounded-[100%] blur-[100px] pointer-events-none z-[1]" />
+      <div className="absolute top-[40%] left-1/2 md:left-[60%] -translate-x-1/2 -translate-y-1/2 w-[30vw] h-[20vw] bg-red-600/8 rounded-[100%] blur-[100px] pointer-events-none z-[1]" />
 
       {/* ── Main Content ── */}
       <div className="relative z-10 max-w-[1536px] mx-auto px-6 md:px-12 lg:px-16 pt-32 md:pt-40 pb-12 min-h-[100dvh] flex flex-col justify-between">
 
         {/* Top Section */}
-        <div className="relative z-20 mt-20 md:mt-20">
+        <div className="relative z-20 mt-[62vw] sm:mt-[40vw] md:mt-20">
           {/* Portfolio Label */}
           <div className="flex items-center gap-4 mb-4 md:mb-6 text-white/50">
             <div className="w-8 md:w-16 h-[1px] bg-[#c1121f]" />
@@ -96,11 +98,11 @@ export default function Hero() {
           </h2>
 
           {/* Role Tags with extending red line */}
-          <div className="flex items-center w-full mt-8 md:mt-2">
-            <span className="font-body text-[9px] md:text-[11px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-white/40 pr-4 md:pr-8 whitespace-nowrap">
+          <div className="flex flex-col md:flex-row md:items-center w-full mt-8 md:mt-2 gap-2 md:gap-0">
+            <span className="font-body text-[9px] md:text-[11px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-white/40 md:pr-8 whitespace-normal md:whitespace-nowrap">
               VIDEO EDITOR · MOTION GRAPHIC DESIGNER · BRAND & VISUAL DESIGNER
             </span>
-            <div className="h-[1px] bg-[#c1121f]/60 flex-grow" />
+            <div className="h-[1px] bg-[#c1121f]/60 flex-grow hidden md:block" />
           </div>
         </div>
 
