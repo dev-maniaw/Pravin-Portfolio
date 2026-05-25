@@ -57,6 +57,8 @@ const VideoEditingShowcase: React.FC = () => {
     { id: 12, src: r2('Videos/VIDEO 12.mp4'), title: "Video 12", category: "BRAND / AD",         isVertical: true  },
     { id: 13, src: r2('Videos/VIDEO 13.mp4'), title: "Video 13", category: "CREATIVE / MOTION",  isVertical: true  },
     { id: 14, src: r2('Videos/VIDEO 14.mp4'), title: "Video 14", category: "PORTFOLIO",          isVertical: true  },
+    { id: 15, src: r2('Videos/VIDEO 15.mp4'), title: "Video 15", category: "PORTFOLIO",          isVertical: true  },
+    { id: 16, src: r2('Videos/VIDEO 16.mp4'), title: "Video 16", category: "BRAND / COMMERCIAL", isVertical: true  },
   ];
 
   const services = [
