@@ -43,22 +43,20 @@ const LazyVideo = ({ src, className }: { src: string; className?: string }) => {
 
 const VideoEditingShowcase: React.FC = () => {
   const shorts = [
-    { id: 1,  src: r2('Videos/VIDEO 1.mp4'),  title: "Rockstar Style Edit",   category: "ACTION / GAMING",    isVertical: false },
-    { id: 2,  src: r2('Videos/VIDEO 2.mp4'),  title: "Brand Showcase",        category: "BRAND / COMMERCIAL", isVertical: false },
-    { id: 3,  src: r2('Videos/VIDEO 3.mp4'),  title: "Creative Montage",      category: "CREATIVE / MOTION",  isVertical: true  },
-    { id: 4,  src: r2('Videos/VIDEO 4.mp4'),  title: "Gaming Highlights",     category: "GAMING / MONTAGE",   isVertical: true  },
-    { id: 5,  src: r2('Videos/VIDEO 5.mp4'),  title: "Console Promotion",     category: "BRAND / AD",         isVertical: true  },
-    { id: 6,  src: r2('Videos/VIDEO 6.mp4'),  title: "Social Media Reel",     category: "PORTFOLIO",          isVertical: true  },
-    { id: 7,  src: r2('Videos/VIDEO 7.mp4'),  title: "Cinematic Visuals",     category: "CINEMATIC",          isVertical: true  },
-    { id: 8,  src: r2('Videos/VIDEO 8.mp4'),  title: "Product Promo",         category: "BRAND / COMMERCIAL", isVertical: true  },
-    { id: 9,  src: r2('Videos/VIDEO 9.mp4'),  title: "Motion Poster",         category: "CREATIVE / MOTION",  isVertical: false },
-    { id: 10, src: r2('Videos/VIDEO 10.mp4'), title: "Ad Campaign",           category: "BRAND / AD",         isVertical: false },
-    { id: 11, src: r2('Videos/VIDEO 11.mp4'), title: "SC 12.0",               category: "PORTFOLIO",          isVertical: true  },
-    { id: 12, src: r2('Videos/VIDEO 12.mp4'), title: "SC 13.0",               category: "PORTFOLIO",          isVertical: true  },
-    { id: 13, src: r2('Videos/VIDEO 13.mp4'), title: "SG 5",                  category: "PORTFOLIO",          isVertical: true  },
-    { id: 14, src: r2('Videos/VIDEO 14.mp4'), title: "TG 7.0",                category: "PORTFOLIO",          isVertical: true  },
-    { id: 15, src: r2('Videos/VIDEO 15.mp4'), title: "Special Edit",            category: "PORTFOLIO",          isVertical: true  },
-    { id: 16, src: r2('Videos/VIDEO 16.mp4'), title: "Commercial Promo",        category: "BRAND / COMMERCIAL", isVertical: true  },
+    { id: 1,  src: r2('Videos/VIDEO 1.mp4'),  title: "Video 1",  category: "BRAND / COMMERCIAL", isVertical: false },
+    { id: 2,  src: r2('Videos/VIDEO 2.mp4'),  title: "Video 2",  category: "BRAND / AD",         isVertical: false },
+    { id: 3,  src: r2('Videos/VIDEO 3.mp4'),  title: "Video 3",  category: "ACTION / GAMING",    isVertical: true  },
+    { id: 4,  src: r2('Videos/VIDEO 4.mp4'),  title: "Video 4",  category: "CREATIVE / MOTION",  isVertical: true  },
+    { id: 5,  src: r2('Videos/VIDEO 5.mp4'),  title: "Video 5",  category: "GAMING / MONTAGE",   isVertical: true  },
+    { id: 6,  src: r2('Videos/VIDEO 6.mp4'),  title: "Video 6",  category: "PORTFOLIO",          isVertical: true  },
+    { id: 7,  src: r2('Videos/VIDEO 7.mp4'),  title: "Video 7",  category: "BRAND / COMMERCIAL", isVertical: true  },
+    { id: 8,  src: r2('Videos/VIDEO 8.mp4'),  title: "Video 8",  category: "CINEMATIC",          isVertical: true  },
+    { id: 9,  src: r2('Videos/VIDEO 9.mp4'),  title: "Video 9",  category: "ACTION / GAMING",    isVertical: false },
+    { id: 10, src: r2('Videos/VIDEO 10.mp4'), title: "Video 10", category: "GAMING / MONTAGE",   isVertical: false },
+    { id: 11, src: r2('Videos/VIDEO 11.mp4'), title: "Video 11", category: "PORTFOLIO",          isVertical: true  },
+    { id: 12, src: r2('Videos/VIDEO 12.mp4'), title: "Video 12", category: "BRAND / AD",         isVertical: true  },
+    { id: 13, src: r2('Videos/VIDEO 13.mp4'), title: "Video 13", category: "CREATIVE / MOTION",  isVertical: true  },
+    { id: 14, src: r2('Videos/VIDEO 14.mp4'), title: "Video 14", category: "PORTFOLIO",          isVertical: true  },
   ];
 
   const services = [
