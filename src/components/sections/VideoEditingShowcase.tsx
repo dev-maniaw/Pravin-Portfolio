@@ -93,18 +93,28 @@ const VideoEditingShowcase: React.FC = () => {
   const landscapeVideos = shorts.filter(v => !v.isVertical);
   const topLandscapeVideos = landscapeVideos.slice(0, 2);
   const bottomLandscapeVideos = landscapeVideos.slice(2);
+  
   const portraitVideos = shorts.filter(v => v.isVertical);
-  const visiblePortraitCount = isExpanded ? portraitVideos.length : 6;
-  const visiblePortraits = portraitVideos.slice(0, visiblePortraitCount);
+  const portraitVideos1 = portraitVideos.slice(0, 6);
+  const portraitVideos2 = portraitVideos.slice(6);
 
-  // Masonry distribution for portrait videos
+  // Masonry distribution for portrait videos 1 (Videos 3 to 8)
   const numCols = isMobile ? 2 : 3;
-  const columns: typeof shorts[] = Array.from({ length: numCols }, () => []);
-  const colHeights = Array(numCols).fill(0);
-  visiblePortraits.forEach((item) => {
-    const minIdx = colHeights.indexOf(Math.min(...colHeights));
-    columns[minIdx].push(item);
-    colHeights[minIdx] += 2;
+  const columns1: typeof shorts[] = Array.from({ length: numCols }, () => []);
+  const colHeights1 = Array(numCols).fill(0);
+  portraitVideos1.forEach((item) => {
+    const minIdx = colHeights1.indexOf(Math.min(...colHeights1));
+    columns1[minIdx].push(item);
+    colHeights1[minIdx] += 2;
+  });
+
+  // Masonry distribution for portrait videos 2 (Videos 11 to 16)
+  const columns2: typeof shorts[] = Array.from({ length: numCols }, () => []);
+  const colHeights2 = Array(numCols).fill(0);
+  portraitVideos2.forEach((item) => {
+    const minIdx = colHeights2.indexOf(Math.min(...colHeights2));
+    columns2[minIdx].push(item);
+    colHeights2[minIdx] += 2;
   });
 
   return (
@@ -139,7 +149,7 @@ const VideoEditingShowcase: React.FC = () => {
       {/* Video Grid */}
       <div className="w-full max-w-[1440px] xl:max-w-[1536px] mx-auto pb-12 md:pb-20 lg:pb-24 px-4 md:px-6 lg:px-12">
 
-        {/* Row 1 — Top Landscape videos (16:9) */}
+        {/* Row 1 — Top Landscape videos (16:9) - Videos 1 and 2 */}
         {topLandscapeVideos.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 mb-3 md:mb-6">
             {topLandscapeVideos.map((item) => (
@@ -173,69 +183,47 @@ const VideoEditingShowcase: React.FC = () => {
           </div>
         )}
 
-        {/* Row 2+ — Portrait videos (9:16) masonry */}
-        <div className={`grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 items-start`}>
-          {columns.map((column, colIndex) => (
-            <div key={colIndex} className="flex flex-col gap-3 md:gap-6">
-              {column.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => setActiveVideo(item.src)}
-                  className="relative w-full rounded-[12px] md:rounded-[20px] bg-[#161616] border border-white/5 hover:border-[#c1121f]/50 overflow-hidden group cursor-pointer"
-                >
-                  <LazyVideo src={item.src} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" />
-                  {/* Category Badge */}
-                  <div className="absolute top-2 left-2 md:top-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10">
-                    <span className="font-body text-[11px] md:text-base font-bold tracking-widest text-white/80 uppercase">
-                      {(item as any).category || "PORTFOLIO"}
-                    </span>
+        {/* Row 2 — Portrait videos (9:16) masonry - Videos 3 to 8 */}
+        {portraitVideos1.length > 0 && (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 items-start">
+            {columns1.map((column, colIndex) => (
+              <div key={colIndex} className="flex flex-col gap-3 md:gap-6">
+                {column.map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => setActiveVideo(item.src)}
+                    className="relative w-full rounded-[12px] md:rounded-[20px] bg-[#161616] border border-white/5 hover:border-[#c1121f]/50 overflow-hidden group cursor-pointer"
+                  >
+                    <LazyVideo src={item.src} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" />
+                    {/* Category Badge */}
+                    <div className="absolute top-2 left-2 md:top-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10">
+                      <span className="font-body text-[11px] md:text-base font-bold tracking-widest text-white/80 uppercase">
+                        {(item as any).category || "PORTFOLIO"}
+                      </span>
+                    </div>
+                    {/* Mute Icon */}
+                    <div className="absolute top-2 right-2 md:top-4 md:right-4 size-7 md:size-10 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center z-10">
+                      <svg className="size-3 md:size-4 text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                        <line x1="17" y1="9" x2="23" y2="15"></line>
+                      </svg>
+                    </div>
+                    {/* Play */}
+                    <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10 flex items-center gap-1 md:gap-2">
+                      <svg className="size-3 md:size-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                      <span className="font-body text-[11px] md:text-base font-bold tracking-wider text-white uppercase mt-[1px]">PLAY</span>
+                    </div>
                   </div>
-                  {/* Mute Icon */}
-                  <div className="absolute top-2 right-2 md:top-4 md:right-4 size-7 md:size-10 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center z-10">
-                    <svg className="size-3 md:size-4 text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                      <line x1="23" y1="9" x2="17" y2="15"></line>
-                      <line x1="17" y1="9" x2="23" y2="15"></line>
-                    </svg>
-                  </div>
-                  {/* Play */}
-                  <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10 flex items-center gap-1 md:gap-2">
-                    <svg className="size-3 md:size-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-                    <span className="font-body text-[11px] md:text-base font-bold tracking-wider text-white uppercase mt-[1px]">PLAY</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-
-        {/* Load More Button — for portrait videos */}
-        {portraitVideos.length > 6 && (
-          <div className="w-full flex flex-col items-center justify-center mt-12 md:mt-20">
-            <span
-              className="font-body text-sm md:text-base font-bold uppercase tracking-[0.2em] text-white/50 mb-4 transition-colors hover:text-white cursor-pointer select-none"
-              onClick={() => setIsExpanded(!isExpanded)}
-            >
-              {isExpanded ? "LOAD LESS" : "LOAD MORE"}
-            </span>
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="size-10 md:size-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:border-white/30 transition-all duration-300 group"
-              aria-label={isExpanded ? "Load less videos" : "Load more videos"}
-            >
-              <svg
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                className={`size-4 text-white/50 group-hover:text-white transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+                ))}
+              </div>
+            ))}
           </div>
         )}
 
-        {/* Row 3 — Bottom Landscape videos (16:9) */}
+        {/* Row 3 — Bottom Landscape videos (16:9) - Videos 9 and 10 */}
         {bottomLandscapeVideos.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 mt-12 md:mt-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 mt-3 md:mt-6 mb-3 md:mb-6">
             {bottomLandscapeVideos.map((item) => (
               <div
                 key={item.id}
@@ -264,6 +252,68 @@ const VideoEditingShowcase: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Row 4 — Portrait videos (9:16) masonry - Videos 11 to 16 (Only visible when expanded) */}
+        {isExpanded && portraitVideos2.length > 0 && (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 items-start animate-in fade-in slide-in-from-top-4 duration-500">
+            {columns2.map((column, colIndex) => (
+              <div key={colIndex} className="flex flex-col gap-3 md:gap-6">
+                {column.map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => setActiveVideo(item.src)}
+                    className="relative w-full rounded-[12px] md:rounded-[20px] bg-[#161616] border border-white/5 hover:border-[#c1121f]/50 overflow-hidden group cursor-pointer"
+                  >
+                    <LazyVideo src={item.src} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" />
+                    {/* Category Badge */}
+                    <div className="absolute top-2 left-2 md:top-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10">
+                      <span className="font-body text-[11px] md:text-base font-bold tracking-widest text-white/80 uppercase">
+                        {(item as any).category || "PORTFOLIO"}
+                      </span>
+                    </div>
+                    {/* Mute Icon */}
+                    <div className="absolute top-2 right-2 md:top-4 md:right-4 size-7 md:size-10 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center z-10">
+                      <svg className="size-3 md:size-4 text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                        <line x1="17" y1="9" x2="23" y2="15"></line>
+                      </svg>
+                    </div>
+                    {/* Play */}
+                    <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 z-10 flex items-center gap-1 md:gap-2">
+                      <svg className="size-3 md:size-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                      <span className="font-body text-[11px] md:text-base font-bold tracking-wider text-white uppercase mt-[1px]">PLAY</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Load More Button — for portrait videos */}
+        {portraitVideos2.length > 0 && (
+          <div className="w-full flex flex-col items-center justify-center mt-12 md:mt-20">
+            <span
+              className="font-body text-sm md:text-base font-bold uppercase tracking-[0.2em] text-white/50 mb-4 transition-colors hover:text-white cursor-pointer select-none"
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? "LOAD LESS" : "LOAD MORE"}
+            </span>
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="size-10 md:size-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:border-white/30 transition-all duration-300 group"
+              aria-label={isExpanded ? "Load less videos" : "Load more videos"}
+            >
+              <svg
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                className={`size-4 text-white/50 group-hover:text-white transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
           </div>
         )}
       </div>
