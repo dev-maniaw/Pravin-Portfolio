@@ -12,7 +12,7 @@
  * Filenames with spaces are automatically URL-encoded (e.g. "Rockstar Games.mp4" → "Rockstar%20Games.mp4")
  */
 export const r2 = (path: string): string => {
-  const base = process.env.NEXT_PUBLIC_R2_URL;
+  const base = process.env.NEXT_PUBLIC_R2_URL || 'https://pub-ede8c91732b54e608c276d8b5f221c8d.r2.dev';
 
   // Encode each path segment to handle spaces and special characters in filenames
   const encodedPath = path
@@ -21,10 +21,6 @@ export const r2 = (path: string): string => {
     .map((segment) => encodeURIComponent(segment))
     .join('/');
 
-  if (!base) {
-    // Fallback to local /public during development if R2 URL is not set
-    return `/${encodedPath}`;
-  }
-
   return `${base.replace(/\/$/, '')}/${encodedPath}`;
 };
+

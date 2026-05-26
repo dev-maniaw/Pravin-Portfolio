@@ -9,27 +9,27 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    text: "We truly appreciate the excellent work delivered by Pravin. His professionalism, attention to detail, and commitment to quality have been remarkable throughout our collaboration.",
+    text: "Working with Pravin felt very easy and comfortable. He understood exactly what we wanted and delivered edits that looked clean, creative, and professional every single time.",
     name: "PRATHAP",
     role: "BRAND AMBASSADOR, SPAWN SKOOL | CEO, GAMEON STUDIOS",
   },
   {
-    text: "Quick Edits, Smooth transitions, Great Clippings and designs which gained millions of views to our short form made for MOC podcast Clips and MOC meme reacts.",
+    text: "Pravin naturally understands visual aesthetics and branding. The designs always felt fresh, clean, and perfectly matched the overall vibe we wanted for the brand.",
     name: "SABANA",
     role: "MANAGER, MEN OF CULTURE",
   },
   {
-    text: "Pravin's journey into video editing began right here with us. He took the time to experiment with different creative approaches, working with brands like Zoca and Attic Fanatics.",
+    text: "One thing I liked about Pravin is how quickly he understands the vision. He’s creative, easy to work with, and always puts genuine effort into making the final output better.",
     name: "KAMALESH",
     role: "TRIGONA DIGITAL",
   },
   {
-    text: "Seasonal Video edits for where so good had a overall good quality and clean look need to improve in fonts and more punchy look.",
+    text: "Pravin’s editing journey started with us, and seeing his growth has been really impressive. From trying new styles to improving his storytelling and quality, his dedication always stood out.",
     name: "SATISH RAJENDRAN",
     role: "CEO, ATTIC FANATICS",
   },
   {
-    text: "Would hire him again in a heartbeat, Great editing work!",
+    text: "Great experience working with Pravin. Communication was smooth, delivery was quick, and the overall quality of work was genuinely impressive.",
     name: "MANIKANDAN",
     role: "LIFE COACH, FACEBOOK META ADS",
   },
