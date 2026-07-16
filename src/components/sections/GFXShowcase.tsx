@@ -85,10 +85,11 @@ const GFXShowcase = () => {
               <Image
                 src={item.url}
                 alt={item.alt}
-                width={800}
-                height={1000}
+                width={600}
+                height={750}
+                loading="lazy"
                 className="w-full h-auto object-cover rounded-xl md:rounded-[20px] transition-transform duration-700 group-hover:scale-105"
-                unoptimized
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
               />
             </div>
           ))}

@@ -56,7 +56,6 @@ export default function Hero() {
           alt="Praveen Thangavel"
           fill
           priority
-          unoptimized
           className="object-cover object-[center_15%] md:object-[center_top] opacity-90"
           sizes="(max-width: 768px) 100vw, 60vw"
         />

@@ -49,7 +49,6 @@ const Photography = () => {
                                 alt={photo.alt}
                                 fill
                                 loading="lazy"
-                                unoptimized
                                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                                 placeholder="blur"

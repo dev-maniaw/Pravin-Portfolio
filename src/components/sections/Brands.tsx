@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { r2 } from '@/lib/r2';
 
 const BRANDS = [
@@ -26,8 +27,7 @@ const BrandItem = ({ brand, keyPrefix }: { brand: { name: string; logo: string }
     className="inline-flex flex-col justify-center items-center select-none pointer-events-none min-w-fit"
   >
     <div className="relative size-[90px] sm:size-[100px] lg:size-[120px] xl:size-[140px] rounded-full overflow-hidden bg-white flex items-center justify-center shadow-lg p-2">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="w-full h-full object-contain" src={brand.logo} alt={brand.name} />
+      <Image className="w-full h-full object-contain" src={brand.logo} alt={brand.name} width={140} height={140} loading="lazy" sizes="140px" />
     </div>
     <div className="mt-2 md:mt-3 text-white text-[10px] sm:text-xs lg:text-sm xl:text-base font-medium uppercase text-center font-['Montserrat'] tracking-tight max-w-[120px] md:max-w-[140px] leading-tight">
       {brand.name}

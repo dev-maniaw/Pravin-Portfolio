@@ -21,7 +21,7 @@ const LazyVideo = ({ src, className }: { src: string; className?: string }) => {
           el.pause();
         }
       },
-      { threshold: 0.25 }
+      { threshold: 0.1, rootMargin: '300px 0px' }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -138,7 +138,7 @@ const VideoEditingShowcase: React.FC = () => {
               height={900}
               className="w-[210%] max-w-none md:w-[84%] lg:w-[78%] h-auto object-contain translate-y-[2px]"
               priority
-              unoptimized
+              sizes="(max-width: 768px) 210vw, 80vw"
             />
           </div>
         </div>
@@ -346,6 +346,7 @@ const VideoEditingShowcase: React.FC = () => {
               src={activeVideo}
               autoPlay
               controls
+              preload="none"
               className="w-full h-auto max-h-[90vh] object-contain rounded-[16px] md:rounded-[32px] shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/10 bg-black"
             />
           </div>
